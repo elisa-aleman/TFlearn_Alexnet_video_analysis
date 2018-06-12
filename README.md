@@ -31,6 +31,7 @@ https://github.com/tflearn/tflearn/blob/master/examples/images/alexnet.py
 
 
 I ran the programs in the order:
+
 * __VideoProcessing.py__ : Reads video into frames jpg
 * __Frame_to_vector.py__ : Reads the jpg into a vector with classification
 * __tflearn_Alexnet.py__ : Runs the Alexnet model
@@ -52,37 +53,44 @@ http://ubuntuhandbook.org/index.php/2016/09/install-ffmpeg-3-1-ubuntu-16-04-ppa/
 
 For python 3.6 and 2.7:
 
+```
 cmake -DCMAKE_BUILD_TYPE=Release \
     -D WITH_FFMPEG=ON \
     -D CMAKE_INSTALL_PREFIX=/usr/local \
     -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-3.4.0/modules \
     -D OPENCV_ENABLE_NONFREE=True ..
+```
 
 Build but don’t install in a separate folder so that I get the python 3.5 module binding
 
+```
 cmake -D CMAKE_BUILD_TYPE=Release \
     -D WITH_FFMPEG=ON \
     -D PYTHON3_EXECUTABLE=/usr/bin/python3.5 \
     -D CMAKE_INSTALL_PREFIX=/usr/local \
     -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-3.4.0/modules \
     -D OPENCV_ENABLE_NONFREE=True ..
-
+```
 
 ### MacOSX
 
 http://blog.jiashen.me/2014/12/23/build-opencv-3-on-mac-os-x-with-python-3-and-ffmpeg-support/
 
+```
 brew install ffmpeg
 brew install cmake pkg-config
 brew install jpeg libpng libtiff openexr
 brew install eigen tbb
+```
 
+```
 cmake -D CMAKE_BUILD_TYPE=Release \
     -D WITH_FFMPEG=ON \
     -D CMAKE_INSTALL_PREFIX=/usr/local \
     -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
     -D BUILD_opencv_xfeatures2d=OFF \
     -D OPENCV_ENABLE_NONFREE=True ..
+```
 
 make -j4
 sudo make install
