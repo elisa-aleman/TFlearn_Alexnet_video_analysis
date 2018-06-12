@@ -31,9 +31,9 @@ https://github.com/tflearn/tflearn/blob/master/examples/images/alexnet.py
 
 
 I ran the programs in the order:
-VideoProcessing.py : Reads video into frames jpg
-Frame_to_vector.py : Reads the jpg into a vector with classification
-tflearn_Alexnet.py : Runs the Alexnet model
+* __VideoProcessing.py__ : Reads video into frames jpg
+* __Frame_to_vector.py__ : Reads the jpg into a vector with classification
+* __tflearn_Alexnet.py__ : Runs the Alexnet model
 
 
 For the video images I used OpenCV, and I installed as follows:
