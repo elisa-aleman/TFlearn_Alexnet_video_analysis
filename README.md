@@ -1,4 +1,4 @@
-# TFlearn_Alexnet_video_analysis
+# TFlearn Alexnet video analysis with multiple networks
 An implementation of Alexnet using OpenCV and TFlearn for a video analysis project I've been working on.
 
 I had to train several models in a sequence, and what I found is that for loops with graphs don't work, and every model and network needs their own unique variables instead of replaceable ones.
