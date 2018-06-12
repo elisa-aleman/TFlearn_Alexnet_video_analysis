@@ -44,9 +44,9 @@ def MakeModelPath(filename):
     fullpath = os.path.join(halfpath, filename)
     return fullpath
 
-def getDataPath(which = 'first'):
+def getDataPath(mode = 'grayscale_resize_1to10', which = 'first'):
     if which == 'first' or which == 'second':
-        data_path = os.path.join(getProjectFolder(), 'numpy', '{}_vector.npy'.format(which))
+        data_path = os.path.join(getProjectFolder(),'Videos', 'numpy', '{}_{}class_vector.npy'.format(mode, which))
     else:
         raise ValueError('Invalid which = {}'.format(which))
     return data_path
@@ -66,10 +66,10 @@ def ReadyData(data, test_size = 1000, do_shuffle=True):
     return X,Y,test_x,test_y
 
 # Load X, Y, test_x, test_y
-def LoadData(which='first', split_test=True, test_size=1000, do_shuffle=True):
+def LoadData(mode = 'grayscale_resize_1to10', which='first', split_test=True, test_size=1000, do_shuffle=True):
     print("Loading numpy array from file")
     # ## Load after first time
-    input_path = getDataPath(which=which)
+    input_path = getDataPath(mode= mode, which=which)
     if os.path.exists(input_path):
         data = numpy.load(input_path)
         print("Done")
@@ -252,10 +252,10 @@ def Convolutional_Model_Alexnet_second(img_height,img_width,color_channels, n_cl
         second_model = tflearn.DNN(second_convnet, tensorboard_dir=tensorboard_log)
     return second_model, second_graph
 
-def Train(which = 'first', first_graph=tf.Graph(), second_graph=tf.Graph()):
+def Train(mode = 'grayscale_resize_1to10', which = 'first', first_graph=tf.Graph(), second_graph=tf.Graph()):
     # Train any amount of 10x epochs so it gets to at least 15 mins error #
     ## Data reorganize
-    X,Y,test_x,test_y = LoadData(which=which)
+    X,Y,test_x,test_y = LoadData(mode = mode, which=which)
     # X and test_x have the shape (sample_size, img_height, img_width, color_channels) from OpenCV.
     # Mine is Grayscale, so the shape is actually (sample_size, img_height, img_width)
     # Y and test_y are OneHot encoded so have the shape (sample_size, n_classes)
@@ -276,7 +276,7 @@ def Train(which = 'first', first_graph=tf.Graph(), second_graph=tf.Graph()):
     times_run = 1
     times_10x = 1
     batch_size = None
-    model_name = 'Your_model_name__v{}'.format(version)
+    model_name = 'Your_model_name_{}_{}class__v{}'.format(mode, which, version)
     run_id = '{}_run{}'.format(model_name,times_run)
     while os.path.exists(os.path.join(MakeLogFile(''), run_id)):
         times_run += 1
@@ -316,6 +316,7 @@ def Train(which = 'first', first_graph=tf.Graph(), second_graph=tf.Graph()):
     print_log_instructions()
 
 def main():
+    mode = 'grayscale_resize_1to10'
     first_graph = tf.Graph()
     second_graph = tf.Graph()
     Train(which='first', first_graph=first_graph)
